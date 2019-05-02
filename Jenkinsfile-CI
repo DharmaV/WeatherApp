@@ -1,0 +1,33 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout code') {
+        steps {
+				checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Jenkins-Github', url: "https://github.com/gopalagarwal3/dockerdemo.git"]]])
+            }
+        }
+    stage('Run Tests') {
+      steps {
+        sh 'python -m pip install -r requirements.txt'
+        sh 'python -m pytest -v tests/test.py --junit-xml test/results.xml'
+      }
+      post {
+        always {
+                junit 'test/results.xml'
+            }
+        }
+    }
+    stage('Build docker image') {
+      steps {
+        sh 'docker build -t gopalagarwal/cicd .'
+      }
+    }
+    stage('Push result image') {
+		  steps {
+			withDockerRegistry(credentialsId: 'JenkinsDockerHub', url:'') {
+			  sh 'docker push gopalagarwal/cicd'
+			}
+		}
+    }
+  }
+}

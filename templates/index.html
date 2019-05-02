@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+      $(function() {
+        $( "#Location" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax( {
+          url: "/location",
+          dataType: "json",
+          data: {
+            searchtext: request.term
+          },
+          success: function(data) {
+           response(data);
+            console.log(data);
+              debugger;
+          }
+        } );
+      },
+      minLength: 2,
+      select: function( event, ui)
+      {
+       $("#Location").val(ui.item.label);
+        console.log( "Selected: " + ui.item.value + " aka " + ui.item.label );
+        return false;
+      }
+    } );
+});
+    </script>
+    <meta charset="UTF-8">
+    <titlle>{{title}}</title>
+</head>
+<body>
+<div class="ui-widget">
+  <label for="Location">Location: </label>
+    <input id="Location">
+</div>
+
+
+</body>
+</html>
