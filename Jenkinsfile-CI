@@ -6,17 +6,6 @@ pipeline {
 				checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Jenkins-Github', url: "https://github.com/DharmaV/WeatherApp.git"]]])
             }
         }
-    stage('Run Tests') {
-      steps {
-        sh 'python -m pip install -r requirements.txt'
-        sh 'python -m pytest -v tests/test.py --junit-xml test/results.xml'
-      }
-      post {
-        always {
-                junit 'test/results.xml'
-            }
-        }
-    }
     stage('Build docker image') {
       steps {
         sh 'docker build -t gopalagarwal/cicd .'
