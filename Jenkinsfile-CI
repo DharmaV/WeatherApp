@@ -8,13 +8,13 @@ pipeline {
         }
     stage('Build docker image') {
       steps {
-        sh 'docker build -t gopalagarwal/cicd .'
+        sh 'docker build -t dharma/weapp .'
       }
     }
     stage('Push result image') {
 		  steps {
 			withDockerRegistry(credentialsId: 'JenkinsDockerHub', url:'') {
-			  sh 'docker push gopalagarwal/cicd'
+			  sh 'docker push dharma/weapp'
 			}
 		}
     }
