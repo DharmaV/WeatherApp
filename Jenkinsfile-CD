@@ -8,14 +8,14 @@ pipeline {
         }
     stage('Docker pull images') {
 		  steps {
-			withDockerRegistry(credentialsId: 'JenkinsDockerHub', url:'') {
+			withDockerRegistry(credentialsId: 'mydockerhub', url:'') {
 			  sh 'docker pull dharma/weapp'
 			}
 		}
     }
     stage('Run') {
 		  steps {
-			withDockerRegistry(credentialsId: 'JenkinsDockerHub', url:'') {
+			withDockerRegistry(credentialsId: 'mydockerhub', url:'') {
 			  sh 'docker run -p 5000:5000 dharma/weapp:latest'
 			}
 		}
