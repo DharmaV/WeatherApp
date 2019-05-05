@@ -8,8 +8,8 @@ pipeline {
         }
     stage('Build docker image') {
       steps {
-	    sh '#!/usr/bin/sh -xe\n env'
-        sh 'docker build -t dharma/weapp .'
+	    
+        shell 'docker build -t dharma/weapp .'
       }
     }
     stage('Push result image') {
