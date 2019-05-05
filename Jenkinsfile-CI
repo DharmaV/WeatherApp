@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout code') {
         steps {
-				checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'mydockerhub', url: "https://github.com/DharmaV/WeatherApp.git"]]])
+				checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Jenkins-git', url: "https://github.com/DharmaV/WeatherApp.git"]]])
             }
         }
     stage('Build docker image') {
