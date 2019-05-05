@@ -8,7 +8,7 @@ pipeline {
         }
     stage('Build docker image') {
       steps {
-	    
+	    shell 'docker info'
         shell 'docker build -t dharma/weapp .'
       }
     }
